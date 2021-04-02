@@ -1,45 +1,49 @@
 
     <div class="d-flex justify-content-center">
-      <div class="col col-lg-4 border">
+      <div class="col-lg-4 col-sm-4 border">
         <h4 class="text-center">Pas encore inscrit? Créer un compte ici </h4>
         <form method="post" action="http://localhost/projet/login/signin"> 
           <div class="form-group row">
-            <label for="inputName3" class="col-sm-2 col-form-label">Pseudo :</label>
+            <label for="inputName" class="col-sm-2 col-form-label">Pseudo :</label>
             <div class="col-sm-10">
-              <input type="name" name="name" class="form-control" id="inputName3" placeholder="Votre pseudonyme">
+              <input type="name" name="name" class="form-control" id="inputName1" placeholder="Votre pseudonyme">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Email :</label>
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email :</label>
             <div class="col-sm-10">
-              <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Votre adresse email">
+              <input type="email" name="email" class="form-control" id="inputEmail1" placeholder="Votre adresse email">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password :</label>
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password :</label>
             <div class="col-sm-10">
-              <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Votre mot de passe">
+              <input type="password" name="password" class="form-control" id="inputPassword1" placeholder="Votre mot de passe">
             </div>
           </div>
-          <button class="btn btn-primary" type="submit">S'inscrire</button>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" type="submit">S'inscrire</button>
+          </div>
         </form>
       </div>
-      <div class="col col-lg-4 border">
+      <div class="col-lg-4 col-sm-4 border">
         <h4 class="text-center">Déjà inscrit? Connectez vous ici </h4>
         <form class="form-group" method="post" action="http://localhost/projet/login/connect">
           <div class="form-group row">
-          <label for="inputName3" class="col-sm-2 col-form-label">Pseudo :</label>
+          <label for="inputName" class="col-sm-2 col-form-label">Pseudo :</label>
             <div class="col-sm-10">
-              <input type="name" name="name" class="form-control" id="inputName3" placeholder="Votre pseudonyme">
+              <input type="name" name="name" class="form-control" id="inputName2" placeholder="Votre pseudonyme">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password :</label>
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password :</label>
             <div class="col-sm-10">
-              <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Votre mot de passe">
+              <input type="password" name="password" class="form-control" id="inputPassword2" placeholder="Votre mot de passe">
             </div>
           </div>
-        <button class="btn btn-primary" type="submit">Se connecter</button>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+          </div>
         </form>
       </div>
     </div>

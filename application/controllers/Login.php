@@ -6,10 +6,15 @@ class Login extends CI_Controller {
 	public function index()
 	{
         $this->load->view('/front/partials/header');
-		$this->load->view('/front/partials/nav');
+		if(isset($this->session->id)){
+			$this->load->view('/back/partials/nav');
+		} else {
+			$this->load->view('/front/partials/nav');
+		}
 		$this->load->view('/front/login');
 		$this->load->view('/front/partials/footer');
 	}
+
 	public function signin()
 	{
 		$email = $this->input->post('email');
@@ -28,10 +33,14 @@ class Login extends CI_Controller {
 			$this->load->model('User_model','user');
 			$this->user->inserts($data);
 			
+		} else {
+			echo"<script type='text/javascript'>alert('Veuillez remplir tous les champs');
+			document.location.href='http://localhost/projet/login';</script>";
 		}
-
-		 header('Location: http://localhost/projet/login');
+		echo"<script type='text/javascript'>alert('Bienvenue sur notre site, il vous faut se connecter pour acceder à nos services');
+			document.location.href='http://localhost/projet/login/';</script>";
 	}
+
 	public function connect()
 	{
 		$name = $this->input->post('name');
@@ -42,6 +51,7 @@ class Login extends CI_Controller {
 			
 			$key = 'pseudo';
 			$this->load->model('User_model','user');
+			$this->load->model('Team_model','team');
 			$query = $this->user->selects('*', $key, $name);
 					
 				if($query->num_rows() == 1){
@@ -50,25 +60,43 @@ class Login extends CI_Controller {
 
 						if(password_verify($password,$user->password)){
 
-							$userdata = array (
-								'id' => $user->id,
-								'name' => $user->pseudo,
-							);
-							
+							$user_id = $user->id;
+							$key = 'captain_id';
+							$queryteam = $this->team->selects('*', $key, $user_id);
+							if($queryteam->num_rows() >= 1){
+								foreach($queryteam->result() as $team){
+									$userdata = array (
+										'id' => $user->id,
+										'name' => $user->pseudo,
+										'team_id'=> $team->id,
+									);
+								}
+							} else {
+								$userdata = array (
+									'id' => $user->id,
+									'name' => $user->pseudo,
+								);
+								session_start();
+								$this->session->set_userdata($userdata);
+								header('Location: http://localhost/projet/dashboard/');
+							}
+							session_start();
 							$this->session->set_userdata($userdata);
 							header('Location: http://localhost/projet/dashboard/');
 							
 						} else {
-							header('Location: http://localhost/projet/login/'); 
-							
+							echo"<script type='text/javascript'>alert('merci de renseigner un utilisateur ou mot de passe valide');
+								document.location.href='http://localhost/projet/login';</script>";
 						}
 					}	
 				} else {
-					echo"Aucun utilisateur trouvé";
+					echo"<script type='text/javascript'>alert('merci de renseigner un utilisateur ou mot de passe valide');
+						document.location.href='http://localhost/projet/login';</script>";
 				} 
 			    
 		} else {
-			echo"merci de renseigner un utilisateur ou mot de passe valide";
+			echo"<script type='text/javascript'>alert('merci de renseigner un utilisateur ou mot de passe');
+				document.location.href='http://localhost/projet/login';</script>";
 		}
 	}
 

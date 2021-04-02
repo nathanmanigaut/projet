@@ -1,3 +1,4 @@
+
 <p>
-Bienvenue dans le back
+<?=$this->session->team_id?>
 </p>
