@@ -14,8 +14,11 @@ $games = $this->game->gets();
   </thead>
   <tbody>
   <?foreach($tournois->result() as $tournoi){?>
+    <?$date_start = date_create($tournoi->date_start);
+      $date_start = $date_start->format('d/m/Y H\hi')?>
       <tr>
-        <td><?=$tournoi->date_start?></td>
+      
+        <td><?=$date_start?></td>
         <td><a href="http://localhost/projet/tournoi/display/<?=$tournoi->id?>"><?=$tournoi->name?></a></td>
           <?foreach($games->result() as $jeu){?>
             <?if($jeu->id == $tournoi->jeux_id){?>
@@ -25,7 +28,7 @@ $games = $this->game->gets();
           <?}?>
           
         
-        <td><?=$tournoi->max_team?></td>
+        <td><?=$tournoi->nb_team?></td>
       </tr>
       </a>
       <?}?>    

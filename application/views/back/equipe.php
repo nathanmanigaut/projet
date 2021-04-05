@@ -11,6 +11,7 @@ $jeux = $this->game->gets();
 
     <div class="d-flex justify-content-center">
       <div class="col-lg-6 col-sm-4 border">  
+      <h4 class="text-center">Votre Equipe </h4>
         <form method="post" action="http://localhost/projet/equipe/update_team"> 
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Nom de l'equipe :</label>
@@ -40,7 +41,7 @@ $jeux = $this->game->gets();
 
     <div class="d-flex justify-content-center">
       <div class="col-lg-6 col-sm-4 border">
-        <h4 class="text-center">Votre Equipe </h4>
+      <h4 class="text-center">Créer votre equipe </h4>
         <form method="post" action="http://localhost/projet/equipe/add_team"> 
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Nom de l'equipe :</label>

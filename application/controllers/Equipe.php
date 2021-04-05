@@ -33,6 +33,11 @@ class Equipe extends CI_Controller {
 				'date_update' => $date,
 			);
 			$this->team->inserts($data);
+			$key = 'captain_id';
+			$queryteam = $this->team->selects('*', $key, $user_id);
+			foreach($queryteam->result() as $team){
+				$this->session->set_userdata('team_id',$team->id);
+			}	
 		header('Location: http://localhost/projet/equipe');
 		} else {
 			echo"<script type='text/javascript'>alert('Veuillez remplir tous les champs');
