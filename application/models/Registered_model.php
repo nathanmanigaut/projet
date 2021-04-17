@@ -18,6 +18,15 @@ class Registered_model extends CI_Model {
         return $query;
     }
 
+    public function selects2($params, $key, $value, $key2, $value2 ){
+      
+        $this->db->select($params);
+        $this->db->where($key, $value);
+        $this->db->where($key2, $value2);
+        $query = $this->db->get('registered');
+        return $query;
+    }
+
     public function updates($data, $key, $value){
       
         $this->db->set($data);

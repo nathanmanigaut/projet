@@ -27,7 +27,6 @@ class Tournoi extends CI_Controller {
 		$this->load->model('Game_model','game');
 		$this->load->model('Registered_model','registered');
 		$this->load->model('Team_model','team');
-		$this->load->model('Match_model','match');
 		$this->load->view('/front/partials/header');
 		if(isset($this->session->id)){
 			$this->load->view('/back/partials/nav');
@@ -36,30 +35,7 @@ class Tournoi extends CI_Controller {
 		}
 		$this->load->view('/front/tournoi',$data);
 		$this->load->view('/front/partials/footer');
-		/*$key = 'id';
-		$tournament_id = 'tournament_id';
-		$query = $this->tournoi->selects('*', $key, $id);
-		$games = $this->game->gets();
-		$registered = $this->registered->selects('*', $tournament_id, $id);
-		$teams= $this->team->gets();
-		foreach($query->result() as $tournoi){
-			$i=0;
-			if($registered->num_rows() == $tournoi->nb_team ){
-				$row1 = $registered->row_array($i);
-				$row2 = $registered->row_array($i++);
-				$date = date("Y-m-d H:i:s");
-				$data = array(
-					'tournament_id' => $tournoi->id,
-					'team_1'=> $registered->rows1->team_id,
-					'team_2'=> $registered->rows2->team_id,
-					'date_start'=> $tournoi->date_start,
-					'date_create'=>$date,
-					'date_update'=>$date,
-				);	
-				$this->match->inserts($data);
-			$i += 2;	
-			}
-		}*/
+		
 	}
 	
 	public function add_tournament(){
@@ -130,33 +106,39 @@ class Tournoi extends CI_Controller {
 	}
 	
 	public function register_tournament(){
+		//On récupère tous les modèle dont on a besoin
 		$this->load->model('Registered_model','registered');
 		$this->load->model('Tournament_model','tournoi');
 		$this->load->model('Team_model','team');
+		$this->load->model('Match_model','match');
+		//On récupère l'id du tournoi
 		$tournament_id = $this->input->post('tournament_id');
 		
+		//on verrifie si l'utilisateur à bien créer une équipe
 		if(isset($this->session->team_id)){
 			$team_id = $this->session->team_id;
 		} else if(isset($this->session->id)) {
+		//on verifie si c'est bien un utilisateur connécté	
 			echo"<script type='text/javascript'>alert('Veuillez créer une équipe pour participer au tournoi');
 					window.location='http://localhost/projet/equipe';</script>";
 		} else {
 			echo"<script type='text/javascript'>alert('Veuillez créer un compte pour créer une équipe et participer au tournoi');
 					window.location='http://localhost/projet/equipe';</script>";
 		}
+
 		$date = date("Y-m-d H:i:s");
-		
 		$key = 'id';
 		$querytournament = $this->tournoi->selects('*', $key, $tournament_id);
 		$queryteam = $this->team->selects('*', $key, $team_id);
-		$queryregister = $this->registered->selects('*', 'team_id', $team_id);
-		foreach($querytournament->result() as $tournoi){
+		$queryregister_team = $this->registered->selects2('*', 'team_id', $team_id, 'tournament_id', $tournament_id);
+		$queryregister_tournament = $this->registered->selects('*', 'tournament_id', $tournament_id);
+		foreach($querytournament->result() as $tournament){
 			foreach($queryteam->result() as $team){
-				if($queryregister->num_rows() >= 1){
-					echo"<script type='text/javascript'>alert('Votre equipe est déjà inscrite au tournoi');
-					window.location='http://localhost/projet/tournois/' ;</script>";
-				} else {
-					if($tournoi->jeux_id == $team->jeux_id){
+				if($queryregister_team->num_rows() >= 1){
+						echo"<script type='text/javascript'>alert('Votre equipe est déjà inscrite au tournoi');
+						window.location='http://localhost/projet/tournois/' ;</script>";
+				}else {
+					if($tournament->jeux_id == $team->jeux_id){
 						if(!empty($tournament_id) && !empty($team_id) && !empty($date)){
 							$data = array(
 								'tournament_id' => $tournament_id,
@@ -164,14 +146,48 @@ class Tournoi extends CI_Controller {
 								'date_inscription' => $date,
 							);
 							$this->registered->inserts($data);
-							header('Location: http://localhost/projet/tournoi/display/'.$tournament_id);
+							$queryregister_tournament = $this->registered->selects('*', 'tournament_id', $tournament_id);
+							if($queryregister_tournament->num_rows() == $tournament->nb_team ){
+								$array_team = array();
+								foreach($queryregister_tournament->result() as $register){
+									array_push($array_team, $register->team_id);
+								}
+								for($i = 0; $i < $tournament->nb_team/2;$i++){
+									$data = array(
+										'tournament_id' => $tournament->id,
+										'date_start'=> $tournament->date_start,
+										'date_create'=>$date,
+										'date_update'=>$date,
+									);
+									$random_key = array_rand($array_team,1);
+									$data['team_1'] = $array_team[$random_key];
+									foreach($array_team as $key => $value){
+										if($data['team_1'] == $value){
+											unset($array_team[$key]); 
+										} 
+									}
+									$random_key = array_rand($array_team,1);
+									$data['team_2'] = $array_team[$random_key];
+									foreach($array_team as $key => $value){
+										if($data['team_2'] == $value){
+											unset($array_team[$key]); 
+										} 
+									}
+									$this->match->inserts($data);
+									print_r($array_team);
+									header('Location: http://localhost/projet/tournoi/display/'.$tournament_id);
+								}
+							}else {
+								header('Location: http://localhost/projet/tournoi/display/'.$tournament_id);
+							}
 						}
 					} else {
-						echo"<script type='text/javascript'>alert('Veuillez inscire une équipe du même jeu que le tournoi');
-						window.location='http://localhost/projet/equipe';</script>";
+							echo"<script type='text/javascript'>alert('Veuillez inscire une équipe du même jeu que le tournoi');
+							window.location='http://localhost/projet/equipe';</script>";
 					}	
-				}
-			}
-		}	
-	}
+				}	
+			}		
+		}
+	}		
 }
+	
