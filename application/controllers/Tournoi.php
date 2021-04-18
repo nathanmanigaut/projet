@@ -152,27 +152,30 @@ class Tournoi extends CI_Controller {
 								foreach($queryregister_tournament->result() as $register){
 									array_push($array_team, $register->team_id);
 								}
-								for($i = 0; $i < $tournament->nb_team/2;$i++){
+								for($i = 0; $i < $tournament->nb_team-1 ;$i++){
 									$data = array(
 										'tournament_id' => $tournament->id,
 										'date_start'=> $tournament->date_start,
 										'date_create'=>$date,
 										'date_update'=>$date,
 									);
-									$random_key = array_rand($array_team,1);
-									$data['team_1'] = $array_team[$random_key];
-									foreach($array_team as $key => $value){
-										if($data['team_1'] == $value){
-											unset($array_team[$key]); 
-										} 
-									}
-									$random_key = array_rand($array_team,1);
-									$data['team_2'] = $array_team[$random_key];
-									foreach($array_team as $key => $value){
-										if($data['team_2'] == $value){
-											unset($array_team[$key]); 
-										} 
-									}
+									if(!empty($array_team)){
+										$random_key = array_rand($array_team,1);
+										$data['team_1'] = $array_team[$random_key];
+										foreach($array_team as $key => $value){
+											if($data['team_1'] == $value){
+												unset($array_team[$key]); 
+											} 
+										}
+										$random_key = array_rand($array_team,1);
+										$data['team_2'] = $array_team[$random_key];
+										foreach($array_team as $key => $value){
+											if($data['team_2'] == $value){
+												unset($array_team[$key]); 
+											} 
+										}
+									} 
+									
 									$this->match->inserts($data);
 									print_r($array_team);
 									header('Location: http://localhost/projet/tournoi/display/'.$tournament_id);
