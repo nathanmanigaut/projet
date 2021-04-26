@@ -1,8 +1,3 @@
-<? 
-$tournois = $this->tournoi->orderbys('date_start','ASC');
-$games = $this->game->gets();
-?>
-
 <table class="table table-hover table-dark">
   <thead>
     <tr>
@@ -13,22 +8,20 @@ $games = $this->game->gets();
     </tr>
   </thead>
   <tbody>
-  <?foreach($tournois->result() as $tournoi){?>
-    <?$date_start = date_create($tournoi->date_start);
-      $date_start = $date_start->format('d/m/Y H\hi')?>
+  <?foreach($tournaments->result() as $tournament){?>
       <tr>
       
         <td><?=$date_start?></td>
-        <td><a href="http://localhost/projet/tournoi/display/<?=$tournoi->id?>"><?=$tournoi->name?></a></td>
+        <td><a href="http://localhost/projet/tournoi/display/<?=$tournament->id?>"><?=$tournament->name?></a></td>
           <?foreach($games->result() as $jeu){?>
-            <?if($jeu->id == $tournoi->jeux_id){?>
+            <?if($jeu->id == $tournament->jeux_id){?>
               <td><?=$jeu->name?></td>
             <?}?>
 
           <?}?>
           
         
-        <td><?=$tournoi->nb_team?></td>
+        <td><?=$tournament->nb_team?></td>
       </tr>
       </a>
       <?}?>    

@@ -1,12 +1,6 @@
 <? 
-
-$user_id = $this->session->id;
-$key = 'captain_id';
-$query = $this->team->selects('*', $key, $user_id);
-$jeux = $this->game->gets();
-
-        if($query->num_rows() >= 1 ){
-        foreach($query->result() as $team){
+if($teams->num_rows() >= 1 ){
+  foreach($teams->result() as $team){
 ?>
 
     <div class="d-flex justify-content-center">
@@ -23,18 +17,18 @@ $jeux = $this->game->gets();
             <label for="inputJeuxId" class="col-sm-2 col-form-label">Jeux :</label>
             <div class="col-sm-10 d-flex align-items-center">
               <select class="form-control" name="jeux_id">
-                <?foreach($jeux->result() as $jeu){?>
-                  <option <?if($jeu->id == $team->jeux_id){?> selected <?}?> value="<?=$jeu->id?>"><?=$jeu->name?></option>
+                <?foreach($games->result() as $game){?>
+                  <option <?if($game->id == $team->jeux_id){?> selected <?}?> value="<?=$game->id?>"><?=$game->name?></option>
                 <?}?>
               </select>
             </div>
           </div>
           <div class="d-flex justify-content-center">
-          <button class="btn btn-primary" type="submit">Modifiez votre equipe</button>
+            <button class="btn btn-primary" type="submit">Modifiez votre equipe</button>
           </div>
         </form>
       </div>
-      </div>
+    </div>
 
       <?}
     } else {?>
@@ -53,8 +47,8 @@ $jeux = $this->game->gets();
             <label for="inputJeuxId" class="col-sm-2 col-form-label">Jeux :</label>
             <div class="col-sm-10 d-flex align-items-center">
               <select class="form-control" name="jeux_id">
-                <?foreach($jeux->result() as $jeu){?>
-                  <option value="<?=$jeu->id?>"><?=$jeu->name?></option>
+                <?foreach($games->result() as $game){?>
+                  <option value="<?=$game->id?>"><?=$game->name?></option>
                 <?}?>
               </select>
             </div>
@@ -65,5 +59,4 @@ $jeux = $this->game->gets();
         </form>
       </div>
     </div>
-
-      <?}?>
+<?}?>
