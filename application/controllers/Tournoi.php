@@ -30,7 +30,7 @@ class Tournoi extends CI_Controller
             'date_start' => $date_start,
         );
 
-        //charge les views
+        //chargement des views
         $this->load->view('/back/partials/header');
         if (isset($this->session->id)) {
             $this->load->view('/back/partials/nav');
@@ -85,10 +85,10 @@ class Tournoi extends CI_Controller
     public function add_tournament()
     {
 
-        //charge model
+        //chargement du model
         $this->load->model('Tournament_model', 'tournoi');
 
-        //recupère les post
+        //récupèration des post
         $user_id = $this->session->id;
         $name = $this->input->post('name');
         $jeux_id = $this->input->post('jeux_id');
@@ -109,8 +109,11 @@ class Tournoi extends CI_Controller
             );
             //on insère les données dans la base de donnée
             $this->tournoi->inserts($data);
+
+			//redirection
             header('Location: http://localhost/projet/tournoi');
         } else {
+			//message d'erreur + redirection
             echo "<script type='text/javascript'>alert('Veuillez remplir tous les champs');
 			document.location.href='http://localhost/projet/tournoi';</script>";
         }
@@ -122,7 +125,7 @@ class Tournoi extends CI_Controller
         //chargement du model
         $this->load->model('Tournament_model', 'tournoi');
 
-		//recupèration des post
+		//récupèration des post
         $name = $this->input->post('name');
         $jeux_id = $this->input->post('jeux_id');
         $date_start = $this->input->post('date_start');
@@ -141,13 +144,17 @@ class Tournoi extends CI_Controller
                 'date_update' => $date,
                 'end' => $end,
             );
+
 			$user_id = $this->session->id;
         	$key = 'create_id';
+
 			//execution de la requête
             $this->tournoi->updates($data, $key, $user_id);
+
 			//redirection
 			header('Location: http://localhost/projet/tournoi');
         } else {
+			//message d'erreur + redirection
             echo "<script type='text/javascript'>alert('Veuillez remplir tous les champs');
 					window.location='http://localhost/projet/tournoi';</script>";
         }
@@ -169,11 +176,17 @@ class Tournoi extends CI_Controller
         if (isset($this->session->team_id)) {
 			//si une équipe est crée on récupère son id
             $team_id = $this->session->team_id;
-        } else if (isset($this->session->id)) {
-            //on verifie si c'est bien un utilisateur connecté
+		} 
+		
+		//on verifie si c'est bien un utilisateur connecté
+		else if (isset($this->session->id)) {
+
+            //message d'erreur + redirection
             echo "<script type='text/javascript'>alert('Veuillez créer une équipe pour participer au tournoi');
 					window.location='http://localhost/projet/equipe';</script>";
         } else {
+
+			//message d'erreur + redirection
             echo "<script type='text/javascript'>alert('Veuillez créer un compte pour créer une équipe et participer au tournoi');
 					window.location='http://localhost/projet/equipe';</script>";
         }
@@ -249,12 +262,16 @@ class Tournoi extends CI_Controller
 									//on execute la requête, création d'un match
                                     $this->match->inserts($data); 
                                 }
+								//redirection
 								header('Location: http://localhost/projet/tournoi/display/' . $tournament_id);
                             } else {
+
+								//redirection
                                 header('Location: http://localhost/projet/tournoi/display/' . $tournament_id);
                             }
                         }
                     } else {
+						//message d'erreur + redirection
                         echo "<script type='text/javascript'>alert('Veuillez inscire une équipe du même jeu que le tournoi');
 							window.location='http://localhost/projet/equipe';</script>";
                     }

@@ -21,7 +21,7 @@ class Tournois extends CI_Controller {
 			'tournaments'=>$tournanments,
 			'games'=>$games
 		);
-		//charge les views
+		//chargement des views
         $this->load->view('/front/partials/header');
 		if(isset($this->session->id)){
 			$this->load->view('/back/partials/nav');

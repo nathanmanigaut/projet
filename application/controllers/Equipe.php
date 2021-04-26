@@ -20,7 +20,7 @@ class Equipe extends CI_Controller {
 			'games'=>$games
 		);
 
-		//charge les views
+		//chargement des views
         $this->load->view('/back/partials/header');
 		if(isset($this->session->id)){
 			$this->load->view('/back/partials/nav');
@@ -35,7 +35,7 @@ class Equipe extends CI_Controller {
 		//charge le model
 		$this->load->model('Team_model','team');
 
-		//recuperation des post
+		//récuperation des post
 		$user_id = $this->session->id;
 		$name = $this->input->post('name');
 		$jeux_id = $this->input->post('jeux_id');
@@ -44,7 +44,7 @@ class Equipe extends CI_Controller {
 		//vérification si tous les champs sont remplis
 		if(!empty($name) && !empty($user_id) && !empty($jeux_id) && !empty($date)){
 
-			//preparation de la requête
+			//préparation de la requête
 			$data = array(
 				'captain_id' => $user_id,
 				'name' => $name,
@@ -66,8 +66,11 @@ class Equipe extends CI_Controller {
 				//insertion de l'id de l'équipe dans la session
 				$this->session->set_userdata('team_id',$team->id);
 			}	
+			//message d'erreur + redirection
 		header('Location: http://localhost/projet/equipe');
 		} else {
+
+			//message d'erreur + redirection
 			echo"<script type='text/javascript'>alert('Veuillez remplir tous les champs');
 			document.location.href='http://localhost/projet/equipe';</script>";
 		}
@@ -78,7 +81,7 @@ class Equipe extends CI_Controller {
 		//charge le model
 		$this->load->model('Team_model','team');
 		
-		//recuperation des post
+		//récuperation des post
 		$name = $this->input->post('name');
 		$jeux_id = $this->input->post('jeux_id');
 		$date = date("Y-m-d H:i:s");
@@ -95,11 +98,15 @@ class Equipe extends CI_Controller {
 			);
 			$user_id = $this->session->id;
 			$key ='captain_id';
-			
+
 			//execution de la requête
 			$this->team->updates($data, $key, $user_id);
-		header('Location: http://localhost/projet/equipe');
+
+			//redirection
+			header('Location: http://localhost/projet/equipe');
 		} else {
+
+			//message d'erreur + redirection
 			echo"<script type='text/javascript'>alert('Veuillez remplir tous les champs');
 			window.location='http://localhost/projet/equipe';</script>";
 		}
