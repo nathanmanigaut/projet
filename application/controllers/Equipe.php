@@ -87,11 +87,10 @@ class Equipe extends CI_Controller {
 		$date = date("Y-m-d H:i:s");
 
 		//vérification si tous les champs sont remplis
-		if(!empty($name) && !empty($user_id) && !empty($jeux_id) && !empty($date)){
+		if(!empty($name)  && !empty($jeux_id) && !empty($date)){
 
 			//preparation de la requête
 			$data = array(
-				'captain_id' => $user_id,
 				'name' => $name,
 				'jeux_id' => $jeux_id,
 				'date_update' => $date,

@@ -25,29 +25,37 @@ class Login extends CI_Controller {
 		$email = $this->input->post('email');
 		$pseudo = $this->input->post('name');
 		$mdp = $this->input->post('password');
-		$password = password_hash($mdp, PASSWORD_DEFAULT);
+		$mdp_confirm = $this->input->post('password_confirm');
 		$date = date("Y-m-d H:i:s");
-
-		//verification si tous les champs sont remplis
-		if(!empty($email) && !empty($pseudo) && !empty($mdp)){
-			//préparation de la requête
-			$data = array(
-				'email' => $email,
-				'pseudo' => $pseudo,
-				'password'=> $password,
-				'date_create'=> $date,
-				'date_update'=> $date,
-			);
 			
-			//execution de la requête
-			$this->user->inserts($data);
-			
-		} else {
-
-			//message d'erreur + redirection
-			echo"<script type='text/javascript'>alert('Veuillez remplir tous les champs');
-			document.location.href='http://localhost/projet/login';</script>";
-		}
+			//verification si tous les champs sont remplis
+			if(!empty($email) && !empty($pseudo) && !empty($mdp) && !empty($mdp_confirm)){
+				if($mdp == $mdp_confirm){
+					$password = password_hash($mdp, PASSWORD_DEFAULT);
+					
+					//préparation de la requête
+				$data = array(
+					'email' => $email,
+					'pseudo' => $pseudo,
+					'password'=> $password,
+					'date_create'=> $date,
+					'date_update'=> $date,
+				);
+				
+				//execution de la requête
+				$this->user->inserts($data);
+				
+				}else {
+					//message d'erreur + redirection
+					echo"<script type='text/javascript'>alert('Veuillez saisir deux mot de passe identique');
+					document.location.href='http://localhost/projet/login';</script>";
+				}
+			}else{
+				//message d'erreur + redirection
+				echo"<script type='text/javascript'>alert('Veuillez remplir tous les champs');
+				document.location.href='http://localhost/projet/login/';</script>";
+			}
+		
 
 		//message de validation + redirection
 		echo"<script type='text/javascript'>alert('Bienvenue sur notre site, il vous faut se connecter pour acceder à nos services');

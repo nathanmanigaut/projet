@@ -9,18 +9,25 @@ class Tournoi extends CI_Controller
         //chargement des models
         $this->load->model('Tournament_model', 'tournoi');
         $this->load->model('Game_model', 'game');
+        $this->load->model('Match_model','match');
+        $this->load->model('Team_model', 'team');
 
         //requêtes à la base de données
         $user_id = $this->session->id;
         $tournaments = $this->tournoi->selects('*', 'create_id', $user_id);
         $date = date('Y-m-d\TH:i');
         $games = $this->game->gets();
+        $teams = $this->team->gets();
+        //formatage de la date pour l'affichage
         if ($tournaments->num_rows() >= 1) {
             foreach ($tournaments->result() as $tournament) {
+                $tournament_id = $tournament->id;
                 $date_start = date_create($tournament->date_start);
                 $date_start = $date_start->format('Y-m-d\TH:i');
             }
         }
+        //requête à la base de donnée
+        $matchs = $this->match->selects2('*', 'tournament_id', $tournament_id, 'end', null);
 
         //initialisation du tableau pour passer des donnéess à la view
         $data = array(
@@ -28,6 +35,8 @@ class Tournoi extends CI_Controller
             'date' => $date,
             'games' => $games,
             'date_start' => $date_start,
+            'matchs' => $matchs,
+            'teams' => $teams
         );
 
         //chargement des views
@@ -49,12 +58,15 @@ class Tournoi extends CI_Controller
         $this->load->model('Game_model', 'game');
         $this->load->model('Registered_model', 'registered');
         $this->load->model('Team_model', 'team');
+        $this->load->model('Match_model','match');
 
         //requêtes à la base de données
         $tournaments = $this->tournoi->selects('*', 'id', $id);
         $games = $this->game->gets();
         $registered = $this->registered->selects('*', 'tournament_id', $id);
         $teams = $this->team->gets();
+        $querymatchs = $this->match->selects('*', 'tournament_id', $id);
+        $matchs = $querymatchs->result_array();
         foreach ($tournaments->result() as $tournament) {
             $date_start = date_create($tournament->date_start);
             $date_start = $date_start->format('d/m/Y H\hi');
@@ -67,6 +79,7 @@ class Tournoi extends CI_Controller
             'games' => $games,
             'registered' => $registered,
             'teams' => $teams,
+            'matchs'=> $matchs,
             'date_start' => $date_start,
         );
 
@@ -133,10 +146,9 @@ class Tournoi extends CI_Controller
         $date = date("Y-m-d H:i:s");
 
 		//vérification si tous les champs sont remplis
-        if (!empty($name) && !empty($user_id) && !empty($jeux_id) && !empty($date_start) && !empty($date) && !empty($nb_team)) {
+        if (!empty($name) && !empty($jeux_id) && !empty($date_start) && !empty($date) && !empty($nb_team)) {
 			//préparation de la requête
             $data = array(
-                'create_id' => $user_id,
                 'name' => $name,
                 'jeux_id' => $jeux_id,
                 'date_start' => $date_start,
@@ -152,7 +164,7 @@ class Tournoi extends CI_Controller
             $this->tournoi->updates($data, $key, $user_id);
 
 			//redirection
-			header('Location: http://localhost/projet/tournoi');
+			header('Location:'.base_url('tournoi'));
         } else {
 			//message d'erreur + redirection
             echo "<script type='text/javascript'>alert('Veuillez remplir tous les champs');

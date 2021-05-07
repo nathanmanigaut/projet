@@ -12,7 +12,7 @@
       <tr>
       
         <td><?=$date_start?></td>
-        <td><a href="http://localhost/projet/tournoi/display/<?=$tournament->id?>"><?=$tournament->name?></a></td>
+        <td><a href=<?=base_url('tournoi/display/')?><?=$tournament->id?>><?=$tournament->name?></a></td>
           <?foreach($games->result() as $jeu){?>
             <?if($jeu->id == $tournament->jeux_id){?>
               <td><?=$jeu->name?></td>

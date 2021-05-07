@@ -10,16 +10,18 @@ class Tournois extends CI_Controller {
 		$this->load->model('Game_model','game');
 
 		//requêtes à la base de données
-		$tournanments = $this->tournoi->orderbys('date_start','ASC');
+		$tournaments = $this->tournoi->orderbys('date_start','ASC');
 		$games = $this->game->gets();
+		//formatage de la date pour l'affichage
 		foreach($tournaments->result() as $tournament){
 			$date_start = date_create($tournament->date_start);
-			$date_start = $date_start->format('Y-m-d\TH:i');
+			$date_start = $date_start->format('d-m-Y\ à H:i');
 		}
 		//initialisation du tableau pour passer des donnéess à la view
 		$data = array (
-			'tournaments'=>$tournanments,
-			'games'=>$games
+			'tournaments'=>$tournaments,
+			'games'=>$games,
+			'date_start' => $date_start,
 		);
 		//chargement des views
         $this->load->view('/front/partials/header');

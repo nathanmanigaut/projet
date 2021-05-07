@@ -6,7 +6,7 @@ if($teams->num_rows() >= 1 ){
     <div class="d-flex justify-content-center">
       <div class="col-lg-6 col-sm-4 border">  
       <h4 class="text-center">Votre Equipe </h4>
-        <form method="post" action="http://localhost/projet/equipe/update_team"> 
+        <form method="post" action=<?=base_url('equipe/update_team')?>> 
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Nom de l'equipe :</label>
             <div class="col-sm-10 d-flex align-items-center">
@@ -36,7 +36,7 @@ if($teams->num_rows() >= 1 ){
     <div class="d-flex justify-content-center">
       <div class="col-lg-6 col-sm-4 border">
       <h4 class="text-center">Créer votre equipe </h4>
-        <form method="post" action="http://localhost/projet/equipe/add_team"> 
+        <form method="post" action=<?=base_url('equipe/add_team')?>> 
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Nom de l'equipe :</label>
             <div class="col-sm-10 d-flex align-items-center">
