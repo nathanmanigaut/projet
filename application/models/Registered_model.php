@@ -2,12 +2,12 @@
 
 class Registered_model extends CI_Model {
 
-    private $table = 'registered';
+    
 
     public function inserts($data){
       
         $this->db->set($data);
-        $this->db->insert($table);
+        $this->db->insert('registered');
 
     }
 
@@ -15,7 +15,7 @@ class Registered_model extends CI_Model {
       
         $this->db->select($params);
         $this->db->where($key, $value);
-        $query = $this->db->get($table);
+        $query = $this->db->get('registered');
         return $query;
     }
 
@@ -24,7 +24,7 @@ class Registered_model extends CI_Model {
         $this->db->select($params);
         $this->db->where($key, $value);
         $this->db->where($key2, $value2);
-        $query = $this->db->get($table);
+        $query = $this->db->get('registered');
         return $query;
     }
 
@@ -32,13 +32,13 @@ class Registered_model extends CI_Model {
       
         $this->db->set($data);
         $this->db->where($key, $value);
-        $this->db->update($table);
+        $this->db->update('registered');
 
     }
 
     public function gets(){
 
-        $query = $this->db->get($table);
+        $query = $this->db->get('registered');
         return $query;
     }
     

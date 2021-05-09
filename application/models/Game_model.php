@@ -2,12 +2,11 @@
 
 class Game_model extends CI_Model {
 
-    private $table = 'games';
 
     public function inserts($data){
       
         $this->db->set($data);
-        $this->db->insert($table);
+        $this->db->insert('games');
 
     }
 
@@ -15,7 +14,7 @@ class Game_model extends CI_Model {
       
         $this->db->select($params);
         $this->db->where($key, $value);
-        $query = $this->db->get($table);
+        $query = $this->db->get('games');
         return $query;
     }
 
@@ -23,13 +22,13 @@ class Game_model extends CI_Model {
       
         $this->db->set($data);
         $this->db->where($key, $value);
-        $this->db->update($table);
+        $this->db->update('games');
 
     }
 
     public function gets(){
 
-        $query = $this->db->get($table);
+        $query = $this->db->get('games');
         return $query;
     }
     

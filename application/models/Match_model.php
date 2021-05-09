@@ -2,12 +2,11 @@
 
 class Match_model extends CI_Model {
 
-    private $table = 'matchs';
 
     public function inserts($data){
       
         $this->db->set($data);
-        $this->db->insert($table);
+        $this->db->insert('matchs');
 
     }
 
@@ -15,7 +14,7 @@ class Match_model extends CI_Model {
       
         $this->db->select($params);
         $this->db->where($key, $value);
-        $query = $this->db->get($table);
+        $query = $this->db->get('matchs');
         return $query;
     }
 
@@ -24,7 +23,7 @@ class Match_model extends CI_Model {
         $this->db->select($params);
         $this->db->where($key, $value);
         $this->db->where($key2, $value2);
-        $query = $this->db->get($table);
+        $query = $this->db->get('matchs');
         return $query;
     }
 
@@ -33,7 +32,7 @@ class Match_model extends CI_Model {
         $this->db->select($params);
         $this->db->where($key, $value);
         $this->db->or_where($key2, $value2);
-        $query = $this->db->get($table);
+        $query = $this->db->get('matchs');
         return $query;
     }
     
@@ -41,20 +40,20 @@ class Match_model extends CI_Model {
       
         $this->db->set($data);
         $this->db->where($key, $value);
-        $this->db->update($table);
+        $this->db->update('matchs');
 
     }
 
     public function gets(){
 
-        $query = $this->db->get($table);    
+        $query = $this->db->get('matchs');    
         return $query;
     }
     
     public function orderbys($params,$ordre){
         
         $this->db->order_by($params,$ordre);
-        $query = $this->db->get($table);
+        $query = $this->db->get('matchs');
         
         return $query;
     }

@@ -7,7 +7,7 @@ class Team_model extends CI_Model {
     public function inserts($data){
       
         $this->db->set($data);
-        $this->db->insert($table);
+        $this->db->insert('teams');
 
     }
 
@@ -15,7 +15,7 @@ class Team_model extends CI_Model {
       
         $this->db->select($params);
         $this->db->where($key, $value);
-        $query = $this->db->get($table);
+        $query = $this->db->get('teams');
         return $query;
     }
 
@@ -23,12 +23,12 @@ class Team_model extends CI_Model {
       
         $this->db->set($data);
         $this->db->where($key, $value);
-        $this->db->update($table);
+        $this->db->update('teams');
 
     }
     public function gets(){
 
-        $query = $this->db->get($table);
+        $query = $this->db->get('teams');
         return $query;
     }
     
