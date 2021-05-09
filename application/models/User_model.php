@@ -2,11 +2,12 @@
 
 class User_model extends CI_Model {
 
+    private $table = 'users';
 
     public function inserts($data){
       
         $this->db->set($data);
-        $this->db->insert('users');
+        $this->db->insert($table);
 
     }
 
@@ -14,7 +15,7 @@ class User_model extends CI_Model {
       
         $this->db->select($params);
         $this->db->where($key, $value);
-        $query = $this->db->get('users');
+        $query = $this->db->get($table);
         return $query;
     }
 
@@ -22,7 +23,7 @@ class User_model extends CI_Model {
       
         $this->db->set($data);
         $this->db->where($key, $value);
-        $this->db->update('users');
+        $this->db->update($table);
 
     }
 

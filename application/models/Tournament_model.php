@@ -2,11 +2,12 @@
 
 class Tournament_model extends CI_Model {
 
+    private $table = 'tournament';
 
     public function inserts($data){
       
         $this->db->set($data);
-        $this->db->insert('tournament');
+        $this->db->insert($table);
 
     }
 
@@ -14,7 +15,7 @@ class Tournament_model extends CI_Model {
       
         $this->db->select($params);
         $this->db->where($key, $value);
-        $query = $this->db->get('tournament');
+        $query = $this->db->get($table);
         return $query;
     }
 
@@ -22,14 +23,14 @@ class Tournament_model extends CI_Model {
       
         $this->db->set($data);
         $this->db->where($key, $value);
-        $this->db->update('tournament');
+        $this->db->update($table);
 
     }
 
     public function orderbys($params,$ordre){
         
         $this->db->order_by($params,$ordre);
-        $query = $this->db->get('tournament');
+        $query = $this->db->get($table);
         
         return $query;
     }
