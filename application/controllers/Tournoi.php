@@ -11,6 +11,7 @@ class Tournoi extends CI_Controller
         $this->load->model('Game_model', 'game');
         $this->load->model('Match_model','match');
         $this->load->model('Team_model', 'team');
+        $this->load->model('Registered_model', 'register');
 
         //requêtes à la base de données
         $user_id = $this->session->id;
@@ -24,18 +25,29 @@ class Tournoi extends CI_Controller
                 $tournament_id = $tournament->id;
                 $date_start = date_create($tournament->date_start);
                 $date_start = $date_start->format('Y-m-d\TH:i');
+                $register = $this->register->selects('*','tournament_id',$tournament_id);
+            } if($register->num_rows() >= 1){
+                //requêtes à la base de données
+                $matchs = $this->match->selects2('*', 'tournament_id', $tournament_id, 'end', null);
             }
+            
+            //initialisation du tableau pour passer des donnéess à la view
+            $data = array(
+                'tournaments' => $tournaments,
+                'date' => $date,
+                'games' => $games,
+                'date_start' => $date_start,
+                'matchs' => $matchs,
+                'teams' => $teams
+            );
         }
-        //requête à la base de donnée
-        $matchs = $this->match->selects2('*', 'tournament_id', $tournament_id, 'end', null);
+
 
         //initialisation du tableau pour passer des donnéess à la view
         $data = array(
             'tournaments' => $tournaments,
             'date' => $date,
             'games' => $games,
-            'date_start' => $date_start,
-            'matchs' => $matchs,
             'teams' => $teams
         );
 

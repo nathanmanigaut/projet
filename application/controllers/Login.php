@@ -39,7 +39,6 @@ class Login extends CI_Controller {
 					'pseudo' => $pseudo,
 					'password'=> $password,
 					'date_create'=> $date,
-					'date_update'=> $date,
 				);
 				
 				//execution de la requête
