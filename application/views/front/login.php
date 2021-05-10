@@ -32,9 +32,10 @@
           </div>
         </form>
       </div>
-      <div class="col-lg-4 col-sm-4 border">
-        <h4 class="text-center">Déjà inscrit? Connectez vous ici </h4>
-        <form class="form-group" method="post" action=<?=base_url('login/connect')?>>
+      <div class="col-lg-4 col-sm-4 border align-self-center">
+          <h4 class="text-center">Déjà inscrit? Connectez vous ici </h4>
+        
+          <form class="form-group" method="post" action=<?=base_url('login/connect')?>>
             <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Pseudo :</label>
               <div class="col-sm-10">
@@ -47,8 +48,9 @@
                 <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Votre mot de passe">
               </div>
             </div>  
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" type="submit">Se connecter</button>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-primary" type="submit">Se connecter</button>
+            </div>
           </div>
         </form>
       </div>
