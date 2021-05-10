@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="d-flex justify-content-center border" style="height: 200px">
-    <div class=" align-self-center">
+    <div class="align-self-center">
             <h6> <a href="<?=base_url('login')?>">Créer un compte</a> c'est pouvoir:</h6>
          
         <ul>
