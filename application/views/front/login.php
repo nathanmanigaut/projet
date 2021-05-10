@@ -51,7 +51,6 @@
             <div class="d-flex justify-content-center">
               <button class="btn btn-primary" type="submit">Se connecter</button>
             </div>
-          </div>
         </form>
       </div>
     </div>
