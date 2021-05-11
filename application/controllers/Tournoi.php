@@ -40,10 +40,17 @@ class Tournoi extends CI_Controller
                 'matchs' => $matchs,
                 'teams' => $teams
             );
+            //chargement des views
+        $this->load->view('/back/partials/header');
+        if (isset($this->session->id)) {
+            $this->load->view('/back/partials/nav');
+        } else {
+            $this->load->view('/front/partials/nav');
         }
-
-
-        //initialisation du tableau pour passer des donnéess à la view
+        $this->load->view('/back/tournoi', $data);
+        $this->load->view('/back/partials/footer');
+        } else {
+            //initialisation du tableau pour passer des donnéess à la view
         $data = array(
             'tournaments' => $tournaments,
             'date' => $date,
@@ -60,6 +67,10 @@ class Tournoi extends CI_Controller
         }
         $this->load->view('/back/tournoi', $data);
         $this->load->view('/back/partials/footer');
+        }
+
+
+        
     }
 
     public function display($id)

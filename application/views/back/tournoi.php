@@ -5,7 +5,7 @@ if ($tournaments->num_rows() >= 1) {
         <div class="d-flex justify-content-center">
           <div class="col-lg-6 col-sm-6 border">
           <h2 class="text-center">Votre Tournoi</h2>
-            <form method="post" action=<?=base_url('/tournoi/update_tournament')?>>
+            <form class="form-group" method="post" action=<?=base_url('/tournoi/update_tournament')?>>
               <div class="form-group row">
               <label for="inputName" class="col-sm-2 col-form-label">Nom de votre tournoi :</label>
                 <div class="col-sm-10 d-flex align-items-center">
@@ -84,7 +84,7 @@ if ($tournaments->num_rows() >= 1) {
                   <?if($match->team_1 == $team->id){?>
                     <div class="col-lg-12 col-sm-6 border">
                       
-                      <form method="post" action=<?=base_url('/match/update_match')?>>
+                      <form class="form-group" method="post" action=<?=base_url('/match/update_match')?>>
                         <div class="form-group row ">
                           <input type="hidden" name="match_id" value="<?=$match->id?>">
                           <label for="inputTeamsId" class="col-sm-2 col-form-label">
@@ -121,7 +121,7 @@ if ($tournaments->num_rows() >= 1) {
     <div class="d-flex justify-content-center">
       <div class="col-lg-6 col-sm-6 border">
         <h2 class="text-center">Créer votre tournoi</h2>
-        <form method="post" action=<?=base_url('tournoi/add_tournament')?>>
+        <form  class="form-group" method="post" action=<?=base_url('tournoi/add_tournament')?>>
           <div class="form-group row">
             <label for="inputName" class="col-sm-2 col-form-label">Nom du tournoi :</label>
             <div class="col-sm-10 d-flex align-items-center">
