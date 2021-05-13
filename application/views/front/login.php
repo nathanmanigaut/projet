@@ -1,5 +1,5 @@
-
-    <div class="d-flex justify-content-center">
+    
+    <div class="d-flex justify-content-center" style="padding-top: 50px">
       <div class="col-lg-4 col-sm-4 border">
         <h4 class="text-center" style="padding-top: 10px; padding-bottom: 10px">Pas encore inscrit? Créer un compte ici </h4>
         <form class="form-group" method="post" action=<?=base_url('login/signin')?>> 

@@ -5,13 +5,13 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->view('/back/partials/header');
+        $this->load->view('/back/partial/header');
 		if(isset($this->session->id)){
-			$this->load->view('/back/partials/nav');
+			$this->load->view('/back/partial/nav');
 		} else {
-			$this->load->view('/front/partials/nav');
+			$this->load->view('/front/partial/nav');
 		}
 		$this->load->view('/back/dashboard');
-		$this->load->view('/back/partials/footer');
+		$this->load->view('/back/partial/footer');
 	}
 }

@@ -6,14 +6,14 @@ class Login extends CI_Controller {
 	public function index()
 	{
 		//chargement des views
-        $this->load->view('/front/partials/header');
+        $this->load->view('/front/partial/header');
 		if(isset($this->session->id)){
-			$this->load->view('/back/partials/nav');
+			$this->load->view('/back/partial/nav');
 		} else {
-			$this->load->view('/front/partials/nav');
+			$this->load->view('/front/partial/nav');
 		}
 		$this->load->view('/front/login');
-		$this->load->view('/front/partials/footer');
+		$this->load->view('/front/partial/footer');
 	}
 
 	public function signin()

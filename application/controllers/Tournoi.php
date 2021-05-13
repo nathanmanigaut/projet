@@ -41,14 +41,14 @@ class Tournoi extends CI_Controller
                 'teams' => $teams
             );
             //chargement des views
-        $this->load->view('/back/partials/header');
+        $this->load->view('/back/partial/header');
         if (isset($this->session->id)) {
-            $this->load->view('/back/partials/nav');
+            $this->load->view('/back/partial/nav');
         } else {
-            $this->load->view('/front/partials/nav');
+            $this->load->view('/front/partial/nav');
         }
         $this->load->view('/back/tournoi', $data);
-        $this->load->view('/back/partials/footer');
+        $this->load->view('/back/partial/footer');
         } else {
             //initialisation du tableau pour passer des donnéess à la view
         $data = array(
@@ -58,15 +58,18 @@ class Tournoi extends CI_Controller
             'teams' => $teams
         );
 
-        //chargement des views
-        $this->load->view('/back/partials/header');
-        if (isset($this->session->id)) {
-            $this->load->view('/back/partials/nav');
+        //chargement des views si l'utilisateur est connecté
+		if(isset($this->session->id)){
+            $this->load->view('/back//header');
+            $this->load->view('/back/partial/nav');
+            $this->load->view('/front/partial/nav');
+            $this->load->view('/back/equipe',$query);
+            $this->load->view('/back/partial/footer');
         } else {
-            $this->load->view('/front/partials/nav');
-        }
-        $this->load->view('/back/tournoi', $data);
-        $this->load->view('/back/partials/footer');
+            echo"<script type='text/javascript'>alert('Veuillez vous connecté ou vous inscrire pour accéder a cette page');
+                document.location.href='http://localhost/projet/login';</script>";
+            }
+
         }
 
 
@@ -107,14 +110,14 @@ class Tournoi extends CI_Controller
         );
 
         //charge les views
-        $this->load->view('/front/partials/header');
+        $this->load->view('/front/partial/header');
         if (isset($this->session->id)) {
-            $this->load->view('/back/partials/nav');
+            $this->load->view('/back/partial/nav');
         } else {
-            $this->load->view('/front/partials/nav');
+            $this->load->view('/front/partial/nav');
         }
         $this->load->view('/front/tournoi', $data);
-        $this->load->view('/front/partials/footer');
+        $this->load->view('/front/partial/footer');
 
     }
 
@@ -217,12 +220,13 @@ class Tournoi extends CI_Controller
 		else if (isset($this->session->id)) {
 
             //message d'erreur + redirection
-            echo "<script type='text/javascript'>alert('Veuillez créer une équipe pour participer au tournoi');
-					window.location='http://localhost/projet/equipe';</script>";
+            echo "<script type='text/javascript'>alert('Veuillez créer un compte pour créer une équipe et participer au tournoi');
+					window.location='http://localhost/projet/login';</script>";
+            
         } else {
 
 			//message d'erreur + redirection
-            echo "<script type='text/javascript'>alert('Veuillez créer un compte pour créer une équipe et participer au tournoi');
+            echo "<script type='text/javascript'>alert('Veuillez créer une équipe pour participer au tournoi');
 					window.location='http://localhost/projet/equipe';</script>";
         }
 

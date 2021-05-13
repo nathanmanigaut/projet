@@ -1,7 +1,8 @@
-<nav>
+<!-- Menu de navigation -->
+      <nav>
         <ul class="nav nav-pills nav-fill">
           <li class="nav-item border">
-            <a class="nav-link" href=<?=base_url('accueil')?>>Accueil</a>
+            <a class="nav-link" href=<?=base_url('dashboard')?>>Accueil</a>
           </li>
           <li class="nav-item border">
             <a class="nav-link" href=<?=base_url('login/signout')?>>Se deconnecter</a>

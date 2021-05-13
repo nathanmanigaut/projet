@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 ?><!doctype html>
-<html lang="en">
+<html lang="en" style="height:100%">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,7 +14,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <title>Esport tournament</title>
   </head>
-<body>
+<body style="height:100%">
     <header>
+    <!-- Titre du site -->
         <h1 class="text-center">Esport tournament</h1>
     </header>  

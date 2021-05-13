@@ -20,15 +20,17 @@ class Equipe extends CI_Controller {
 			'games'=>$games
 		);
 
-		//chargement des views
-        $this->load->view('/back/partials/header');
+		//chargement des views si l'utilisateur est connecté
 		if(isset($this->session->id)){
-			$this->load->view('/back/partials/nav');
-		} else {
-			$this->load->view('/front/partials/nav');
-		}
+        $this->load->view('/back//header');
+		$this->load->view('/back/partial/nav');
+		$this->load->view('/front/partial/nav');
 		$this->load->view('/back/equipe',$query);
-		$this->load->view('/back/partials/footer');
+		$this->load->view('/back/partial/footer');
+	} else {
+		echo"<script type='text/javascript'>alert('Veuillez vous connecté ou vous inscrire pour accéder a cette page');
+			document.location.href='http://localhost/projet/login';</script>";
+		}	
 	}
 
 	public function add_team(){

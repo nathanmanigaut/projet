@@ -36,7 +36,7 @@ foreach ($tournaments->result() as $tournament) {?>
         </div>
         <div class="col-lg-4 col-sm-4 align-self-center border ">
             <?if ($registered->num_rows() > 0) {?>
-                <div class="row justify-content-center border">
+                <div class="row justify-content-center">
                     <h6>Equipe Inscrite :</h6>
                 </div>
                 <?foreach ($registered->result() as $register) {?>
